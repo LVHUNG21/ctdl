@@ -19,14 +19,22 @@ private:
 
 public:
     SingleList() : head(0), size(0){};
+
     void addFirst(const T &new_data)
     {
+        if(head==null){
+
+        }else{
+
+        
+
         Node<T> *new_node = new Node<T>(new_data, head);
         head = new_node;
         size++;
         // Node<T> * newNode =new Node<T>(e,head);
         // head=newNode;
         // size++
+        }
     }
     void addLast(const T &new_data)
     {
