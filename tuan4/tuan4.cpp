@@ -293,20 +293,15 @@ int main()
     list.addLast(9);
     // list.addLast(6);
     // list.insert(1, 3);
-
     // list.deleteFirst();
     // list.deleteAtIndex(0);
-
     list.removeKey(9);
     // list.replace(1,21);
     // list.replaceKey(8,21);
-
     list.print(); // Print the list (outputs: 5)
     // list.clear();
-
     // list.addFirst(2);
     // list.print();
-
     DList<int> list2(list);
     list2.print();
     DList<int> list3;
