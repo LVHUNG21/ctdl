@@ -114,8 +114,17 @@ public:
         return head->data;
     }
 };
-// 1. addFirst 2. addLast 3.addAfter 4. RemoveFirst 5. RemoveLast 6. Remove 7.getSize 8.search 9.printtt
-int main()
+// 1. addFirst 2. addLast 3.addAfter 4. RemoveFirst 5. RemoveLast 6. Remove 7.getSize 8.search 9.printtt int main()
+
+
+
+
+
+
+
+
+
+
 {
     try
     {
