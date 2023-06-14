@@ -159,7 +159,6 @@ public:
 
         else
         {
-
             int count = 0;
             while (count < a)
             {
