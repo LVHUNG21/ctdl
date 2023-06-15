@@ -29,21 +29,32 @@ public:
         }
         cout << endl;
     }
-    void addFirst(const T &newvalue)
-    {
-        Node<T> *new_node = new Node<T>(newvalue);
-        if (head == nullptr && tail == nullptr)
-        {
-            head = new_node;
-            tail = new_node;
+    // void addFirst(const T &newvalue)
+    // {
+    //     Node<T> *new_node = new Node<T>(newvalue);
+    //     if (head == nullptr && tail == nullptr)
+    //     {
+    //         head = new_node;
+    //         tail = new_node;
+    //     }
+    //     else
+    //     {
+    //         new_node->next = head;
+    //         head->prev = new_node;
+    //         head = new_node;
+    //     }
+    //     size++;
+    // }
+    void addFirst(const T$ newvalue){
+        Node<T> * new_node=new Node<T>(newvalue);
+        if(tail==nullptr && head ==nullptr){
+                tail=head=new_node;
+        }else{
+            head->prev=new_node;
+            new_node->next=head;
+            head=new_node;
         }
-        else
-        {
-            new_node->next = head;
-            head->prev = new_node;
-            head = new_node;
-        }
-        size++;
+        size++
     }
     void addLast(const T &newvalue)
     {
@@ -59,6 +70,38 @@ public:
             tail = new_node;
         }
         size++;
+    }
+    void insert(const T& new_value,int position){
+        if(position<0 || position >size){
+            cout<<"Invaild Position"<<endl;
+        }
+        if(position==size){
+            addLast(new_value);
+            return;
+        }
+        if(position==0){
+            addFirst(new_value);
+            return;
+        }
+        Node<T> * new_node=new Node<T>(new_value);
+        Node<T> * current_node=head;
+        Node<T> * current_node2=new Node<T>();
+        int count=0;
+        while(current_node<position-1){
+            current_node=current_node->next;
+            count++;
+        }
+        current_node2=current_node->next;
+
+        current_node->next=new_node;
+        new_node->prev=current_node;
+
+        current_node2->prev=new_node;
+        new_node->next=current_node2;
+
+        size++
+
+
     }
     void insert(const T &newvalue, int position)
     {
@@ -215,6 +258,47 @@ public:
             addLast(current_node->data);
         }
     }
+    void insertSorted(const T &newvalue)
+{
+    Node<T> *new_node = new Node<T>(newvalue);
+    Node<T> *current = head;
+
+    // Trường hợp danh sách rỗng
+    if (head == nullptr && tail == nullptr)
+    {
+        addFirst(newvalue);
+        return;
+    }
+
+    // Trường hợp thêm vào đầu danh sách
+    if (newvalue < head->data)
+    {
+        addFirst(newvalue);
+        return;
+    }
+
+    // Trong các trường hợp còn lại, duyệt danh sách
+    while (current != nullptr && current->data < newvalue)
+    {
+        current = current->next;
+    }
+
+    // Trường hợp thêm vào cuối danh sách
+    if (current == nullptr)
+    {
+        addLast(newvalue);
+        return;
+    }
+
+    // Thêm vào trước node current
+    Node<T> *prev_node = current->prev;
+    prev_node->next = new_node;
+    new_node->prev = prev_node;
+    new_node->next = current;
+    current->prev = new_node;
+
+    size++;
+}
 
     // void insert(const T& newvalue, int position)
     // {
@@ -258,12 +342,13 @@ int main()
 {
     DoubleLinkedList<int> list;
     // DoubleLinkedList<int> list2=list;
-    list.addFirst(1);
-    list.addFirst(2);
-    list.addFirst(1);
-    list.addFirst(8);
-    list.addLast(4);
+    // list.addFirst(1);
+    // list.addFirst(2);
+    // list.addFirst(1);
+    // list.addFirst(8);
+    // list.addLast(4);
     // list.insert(7,0);
+    li
     // list.deleteFirst();
     // list.deleteLast();
 //    list.deleteAtIndex(4);
