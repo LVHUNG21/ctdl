@@ -136,6 +136,60 @@ private:
         }
     }
 
+
+void deleteNode(node *&current_node, int val)
+{
+     if (current_node == nullptr)
+     {
+          return;
+     }
+     else if (val < current_node->value)
+     {
+          deleteNode(current_node->left, val);
+     }
+     else if (val > current_node->value)
+     {
+          deleteNode(current_node->right, val);
+     }
+     else
+     {
+          // Case 1: node has no children
+          if (current_node->left == nullptr && current_node->right == nullptr)
+          {
+               delete current_node;
+               current_node = nullptr;
+          }
+          // Case 2: node has one child
+          else if (current_node->left == nullptr)
+          {
+               node *temp = current_node;
+               current_node = current_node->right;
+               delete temp;
+          }
+          else if (current_node->right == nullptr)
+          {
+               node *temp = current_node;
+               current_node = current_node->left;
+               delete temp;
+          }
+          // Case 3: node has two children
+          else
+          {
+               node *temp = findMin(current_node->right);
+               current_node->value = temp->value;
+               deleteNode(current_node->right, temp->value);
+          }
+     }
+}
+
+node* findMin(node *current_node)
+{
+     while (current_node->left != nullptr)
+     {
+          current_node = current_node->left;
+     }
+     return current_node;
+}
 public:
     BinaryTree() : root(nullptr) {};
 
@@ -148,6 +202,10 @@ public:
     {
         return countAdult(root);
     }
+    void deleteNode(int val)
+{
+     deleteNode(root, val);
+}
 
     int countNodes()
     {
