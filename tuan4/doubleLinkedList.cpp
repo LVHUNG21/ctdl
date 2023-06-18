@@ -256,60 +256,115 @@ public:
             }
         };
     }
-void add(const T& value) {
-    node<T>* newnode = new node<T> { value, nullptr, nullptr };
+// void add(const T& value) {
+//     node<T>* newnode = new node<T> { value, nullptr, nullptr };
 
-    if (head == nullptr) {
-        head = tail = newnode;
+//     if (head == nullptr) {
+//         head = tail = newnode;
+//     }
+//     else if (value % 2 == 0) {
+//         node<T>* current = head;
+//         while (current != nullptr && current->data % 2 == 0 && current->data < value) {
+//             current = current->next;
+//         }
+//         if (current == head) {
+//             newnode->next = head;
+//             head->prev = newnode;
+//             head = newnode;
+//         }
+//         else if (current == nullptr) {
+//             newnode->prev = tail;
+//             tail->next = newnode;
+//             tail = newnode;
+//         }
+//         else {
+//             newnode->prev = current->prev;
+//             newnode->next = current;
+//             current->prev->next = newnode;
+//             current->prev = newnode;
+//         }
+//     }
+//     else {
+//         node<T>* current = tail;
+//         while (current != nullptr && current->data % 2 != 0 && current->data > value) {
+//             current = current->prev;
+//         }
+//         if (current == tail) {
+//             newnode->prev = tail;
+//             tail->next = newnode;
+//             tail = newnode;
+//         }
+//         else if (current == nullptr) {
+//             newnode->next = head;
+//             head->prev = newnode;
+//             head = newnode;
+//         }
+//         else {
+//             newnode->prev = current;
+//             newnode->next = current->next;
+//             current->next->prev = newnode;
+//             current->next = newnode;
+//         }
+//     }
+
+//     size++;
+// }
+void add (const T&value){
+    node<T> * new_node=new node<T>{value,nullptr,nullptr};
+    if(head==nullptr)
+    {
+        head=tail=new_node;
     }
-    else if (value % 2 == 0) {
-        node<T>* current = head;
-        while (current != nullptr && current->data % 2 == 0 && current->data < value) {
-            current = current->next;
+    else if(value %2==0){
+    node<T> * current=head;
+    while(current!= nullptr && current->data %2==0&& current->data <value){
+      current=current->next;
+    }
+     if(current==head){
+            new_node->next=head;
+            head->prev=new_node;
+            head=new_node;
         }
-        if (current == head) {
-            newnode->next = head;
-            head->prev = newnode;
-            head = newnode;
-        }
-        else if (current == nullptr) {
-            newnode->prev = tail;
-            tail->next = newnode;
-            tail = newnode;
-        }
-        else {
-            newnode->prev = current->prev;
-            newnode->next = current;
-            current->prev->next = newnode;
-            current->prev = newnode;
+        else if(current==nullptr){
+            new_node->prev=tail;
+        tail->next=new_node;
+            tail=new_node;
+        }else{
+            new_node->prev = current->prev;
+            new_node->next = current;
+            current->prev->next = new_node;
+            current->prev = new_node;
+            
         }
     }
+
     else {
-        node<T>* current = tail;
-        while (current != nullptr && current->data % 2 != 0 && current->data > value) {
-            current = current->prev;
+        node<T> * current=tail;
+        while(current!=nullptr && current->data %2!=0 && current->data>value)
+        {
+                current=current->prev;
         }
-        if (current == tail) {
-            newnode->prev = tail;
-            tail->next = newnode;
-            tail = newnode;
-        }
-        else if (current == nullptr) {
-            newnode->next = head;
-            head->prev = newnode;
-            head = newnode;
-        }
-        else {
-            newnode->prev = current;
-            newnode->next = current->next;
-            current->next->prev = newnode;
-            current->next = newnode;
-        }
-    }
+         if(current==tail){
+                    tail->next=new_node;
+                    new_node->prev=tail;
+                    tail = new_node;
+                }
+                else if(current==nullptr){
+                    head->prev=new_node;
+                    new_node->next=head;
+                    head=new_node;
+                }else{
+                    
+                        new_node->prev=current;
+                        new_node->next=current->next;
+                        current->next->prev=new_node;
+                        current->next=new_node;  
+                }
+                
 
-    size++;
-}
-    
+    }
+ size++;
+}   
     const DoubleLinkedList<T> &operator=(const DoubleLinkedList<T> &DoubleLinkedList2)
     {
         node<T> *current_node = head;
