@@ -8,6 +8,21 @@ struct node
     node<T> *next;
     node(T t = T(), node<T> *p = nullptr, node<T> *n = nullptr) : data(t), prev(p), next(n) {}
 };
+// int compare(int a, int b){
+//     if(a%2!=b%2){
+//         return a%2<b%2;
+//     }
+//     return a<b;
+// }
+int compare(int a, int b){
+    if(a%3!=b%3)
+        return a%3<b%3;
+    else if 
+        (a%3==0)
+            return a<b;
+    else 
+        return a%3==1 ? a<b :a>b;
+}
 template <class T>
 class DoubleLinkedList
 {
@@ -317,7 +332,7 @@ void add (const T&value){
     }
     else if(value %2==0){
     node<T> * current=head;
-    while(current!= nullptr && current->data %2==0&& current->data <value){
+    while(current!= nullptr && compare(current->data,value)){
       current=current->next;
     }
      if(current==head){
@@ -340,7 +355,7 @@ void add (const T&value){
 
     else {
         node<T> * current=tail;
-        while(current!=nullptr && current->data %2!=0 && current->data>value)
+        while(current!=nullptr && compare(value,current->data))
         {
                 current=current->prev;
         }
@@ -441,15 +456,16 @@ int main()
     // list.addFirst(8);
     // list.addLast(4);
     // list.insert(7, 5);
-list.add(1); 
+list.add(9); 
 
 list.add(4);
-list.add(5);
-list.add(8);
-list.add(2);
+list.add(1);
+list.add(7);
 list.add(3);
 list.add(6);
-list.add(9);
+list.add(8);
+list.add(2);
+list.add(5);
 
     // list.deleteFirst();
     // list.deleteLast();
