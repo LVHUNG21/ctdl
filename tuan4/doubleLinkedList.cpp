@@ -14,14 +14,13 @@ struct node
 //     }
 //     return a<b;
 // }
-int compare(int a, int b){
-    if(a%3!=b%3)
-        return a%3<b%3;
-    else if 
-        (a%3==0)
-            return a<b;
-    else 
-        return a%3==1 ? a<b :a>b;
+template<typename T>
+bool compare(const T& a, const T& b) {
+    if (a % 3 != b % 3) {
+        return a % 3 < b % 3;
+    } else {
+        return a < b;
+    }
 }
 template <class T>
 class DoubleLinkedList
@@ -80,7 +79,7 @@ public:
         node<T> *new_node = new node<T>(newvalue);
         if (head == nullptr && tail == nullptr)
         {
-            addFirst(newvalue);
+addFirst(newvalue);
         }
         else
         {
@@ -324,62 +323,80 @@ public:
 
 //     size++;
 // }
-void add (const T&value){
-    node<T> * new_node=new node<T>{value,nullptr,nullptr};
-    if(head==nullptr)
-    {
-        head=tail=new_node;
-    }
-    else if(value %2==0){
-    node<T> * current=head;
-    while(current!= nullptr && compare(current->data,value)){
-      current=current->next;
-    }
-     if(current==head){
-            new_node->next=head;
-            head->prev=new_node;
-            head=new_node;
+void add(const T& value) {
+    node<T>* new_node = new node<T>{value, nullptr, nullptr};
+
+    if (head == nullptr) {
+        head = tail = new_node;
+    } else if (value % 3 == 2) {
+        node<T>* current = head;
+        while (current != nullptr && compare(value, current->data)) {
+            current = current->next;
         }
-        else if(current==nullptr){
-            new_node->prev=tail;
-        tail->next=new_node;
-            tail=new_node;
-        }else{
+
+        if (current == head) {
+            new_node->next = head;
+            head->prev = new_node;
+            head = new_node;
+        } else if (current == nullptr) {
+            new_node->prev = tail;
+            tail->next = new_node;
+            tail = new_node;
+        } else {
             new_node->prev = current->prev;
             new_node->next = current;
             current->prev->next = new_node;
             current->prev = new_node;
-            
+        }
+    } else if (value % 3 == 1) {
+        node<T>* current = tail;
+        while (current != nullptr && compare(current->data, value)) {
+            current = current->prev;
+        }
+
+        if (current == tail) {
+            tail->next = new_node;
+            new_node->prev = tail;
+            tail = new_node;
+        } else if (current == nullptr) {
+            head->prev = new_node;
+            new_node->next = head;
+            head = new_node;
+        } else {
+            new_node->prev = current;
+            new_node->next = current->next;
+            current->next->prev = new_node;
+            current->next = new_node;
+        }
+    } else { // value % 3 == 0
+        node<T>* current = tail;
+        // while (current != nullptr && current->data % 3 != 0) {
+        //     current = current->prev;
+        // }
+        while (current != nullptr && compare(current->data,value)) {
+            current = current->prev;
+        }
+
+        if (current == tail) {
+            tail->next = new_node;
+            new_node->prev = tail;
+            tail = new_node;
+        } else if (current == nullptr) {
+            head->prev = new_node;
+            new_node->next = head;
+            head = new_node;
+        } else {
+            new_node->prev = current;
+            new_node->next = current->next;
+            current->next->prev = new_node;
+            current->next = new_node;
         }
     }
 
-    else {
-        node<T> * current=tail;
-        while(current!=nullptr && compare(value,current->data))
-        {
-                current=current->prev;
-        }
-         if(current==tail){
-                    tail->next=new_node;
-                    new_node->prev=tail;
-                    tail = new_node;
-                }
-                else if(current==nullptr){
-                    head->prev=new_node;
-                    new_node->next=head;
-                    head=new_node;
-                }else{
-                    
-                        new_node->prev=current;
-                        new_node->next=current->next;
-                        current->next->prev=new_node;
-                        current->next=new_node;  
-                }
-                
+    size++;
+}
 
-    }
- size++;
-}   
+
     const DoubleLinkedList<T> &operator=(const DoubleLinkedList<T> &DoubleLinkedList2)
     {
         node<T> *current_node = head;
@@ -475,7 +492,7 @@ list.add(5);
     // list.replaceKey(1,6);
     list.print();
     // list2=list;
-    DoubleLinkedList<int> list2 = list;
-    list2.print();
+//     DoubleLinkedList<int> list2 = list;
+//     list2.print();
 }
 // https://github.com/OSSpk/Doubly-and-Singly-Linked-List/blob/master/Doubly%20Linked%20List%20(with%20HEAD%20and%20TAIL).cpp
