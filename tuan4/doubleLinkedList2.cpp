@@ -29,13 +29,39 @@ class DoubleLinkedList{
         DoubleLinkedList():head(nullptr),tail(nullptr),size(0) {};
         ~DoubleLinkedList(){};
         void print(){
-            Node<T> * current=head;
-            while(current!=nullptr){
-                cout<<current->data;
-                current=current->next;
+    Node<T> * current = head;
+    while(current != nullptr){
+        cout << current->data << " ";
+        current = current->next;
+    }
+    cout << endl;
+}
+   void removeKey(const T &t){
+    Node<T> *current = head;
+    while (current != nullptr){
+        if (current->data == t){
+            Node<T> *node_delete = current;
+            current = current->next;
+            if (node_delete == head){
+                               head = node_delete->next;
+                head->prev = nullptr;
             }
-            cout<<endl;
+            else if (node_delete == tail){
+                 tail = node_delete->prev;
+                tail->next = nullptr;
+            }
+            else{
+                node_delete->prev->next = node_delete->next;
+                node_delete->next->prev = node_delete->prev;
+                delete node_delete;
+                size--;
+            }
         }
+        else{
+            current = current->next;
+        }
+    }
+}
         void add(T value){
             Node<T> * new_node=new Node<T>(value);
             if(head==nullptr){
@@ -70,7 +96,7 @@ class DoubleLinkedList{
                     tail->next=new_node;
                     tail=new_node;
                 }
-                else if(current=nullptr){
+                else if(current==nullptr){
                     new_node->next=head;
                     head->prev=new_node;
                     head=new_node;
@@ -169,14 +195,23 @@ int main (){
     // list.insert(7, 5);
 list.add3(9); 
 
-list.add3(4);
+list.add3(1);
+list.add3(2);
+list.add3(2);
+list.add3(7);
 list.add3(1);
 list.add3(7);
-list.add3(3);
+list.add3(7);
 list.add3(6);
 list.add3(8);
 list.add3(2);
 list.add3(5);
+list.add3(5);
+list.print();
+cout<<"---"<<endl;
+// list.removeKey(2);
+list.removeKey(7);
+// list.removeKey(8);
 
     // list.deleteFirst();
     // list.deleteLast();
@@ -185,4 +220,5 @@ list.add3(5);
     // list.replace(4,9);
     // list.replaceKey(1,6);
     list.print();
+  
 }
