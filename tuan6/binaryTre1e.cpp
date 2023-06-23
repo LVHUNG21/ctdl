@@ -99,19 +99,16 @@ public:
             inOrder_print(current_node->right);
         }
     }
-
     void addRec1(T e)
     {
         addRec(root, e);
     }
-
     void inOrder_print()
     {
         inOrder_print(root);
         cout << "*";
     }
 };
-
 int main()
 {
     BinaryTree<int> tree;

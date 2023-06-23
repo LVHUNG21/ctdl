@@ -28,6 +28,52 @@ private:
             inOrder_print(root->right);
         }
     }
+    Node<T>* searchKey(Node<T> * root,T key){
+        if(root==nullptr || root->data=key){
+            return root;
+        }
+        else{
+            if(compare(key,root->data)){
+                searchKey(root->left,key);
+            }
+            else{
+                searchKey(root->right,key);
+            }
+        }
+    }
+    Node<T> * removeKey(Node<T> *root,T key){
+        if(root==nullptr){
+            return root;
+        }
+        else if(compare(key,root->data)){
+            root->left=removeKey(root->left,key);
+        }
+        else if(compare(root->data,key)){
+            root->right=removeKey(root->right,key);
+        }
+        else{
+            if(root->left==nullptr){
+                Node<T> *temp=root->right;
+                delete root;
+                return temp;
+            }else if(root->right==nullptr){
+                Node<T> * temp=root->left;
+                delete root;
+                return temp;
+            }
+            Node<T> *temp=minNode(root->right);
+            root->data=temp->data;
+            root->right=removeKey(root->right,temp->data);
+        }
+    };
+    Node<T> * minNode(Node<T> * root){
+        Node<T> *current=root;
+        while(current!=nullptr && current->left!=nullptr){
+            current=current->left;
+        } 
+        return current;
+    }
+    // void addRec1(Node<T> * & root,T value )
     void addRec1(Node<T> *&root, T value)
     {
        if (root == nullptr) {
@@ -50,12 +96,22 @@ private:
         return left+right+1;
     };
     
-    void copy(Node<T> * &a ,Node<T> * b){
-        if(b==nullptr){
+    // void copy(Node<T> * &a ,Node<T> * b){
+    //     if(b==nullptr){
+    //         a=nullptr;
+    //     }else{
+    //         a=new Node<T>(b->data);
+    //         copy(a->left,a->left);
+    //         copy(a->right,b->right);
+    //     }
+    // }
+    void copy(Node<T> * &a,Node<T> *b){
+        if(a==nullptr){
             a=nullptr;
-        }else{
+        }
+        else{
             a=new Node<T>(b->data);
-            copy(a->left,a->left);
+            copy(a->left,b->left);
             copy(a->right,b->right);
         }
     }
@@ -68,12 +124,12 @@ public:
     }
     BinaryTree(const BinaryTree &other):root(nullptr){
         copy(root,other.root);
-    }
+    } 
     BinaryTree& operator=(const BinaryTree &other){
         if(this!=&other){
             makeEmpty(root);
             copy(root,other.root);
-        }
+        } 
         return * this;
     }
     void makeEmpty(Node<T> *root)
@@ -97,6 +153,9 @@ public:
     {
         inOrder_print(root);
     }
+    void removeKey(T key){
+        root=removeKey(root,key);
+    }
 };
 int main()
 {
@@ -109,12 +168,15 @@ int main()
     tree.addRec(9);
     tree.addRec(10);
     tree.inOrder();
+    cout<<endl;
+    tree.removeKey(8);
+    tree.inOrder(); //
 
-    BinaryTree<int> tree2(tree); // sử dụng hàm copy constructor
-    tree2.inOrder();
+    // BinaryTree<int> tree2(tree); // sử dụng hàm copy constructor
+    // tree2.inOrder();
 
-    BinaryTree<int> tree3;
-    tree3 = tree; // sử dụng toán tử gán bằng
-    tree3.inOrder();
+    // BinaryTree<int> tree3;
+    // tree3 = tree; // sử dụng toán tử gán bằng
+    // tree3.inOrder();
     return 0;
 }
