@@ -13,13 +13,18 @@ using namespace std;
 //         arr[j + 1] = key;
 //     }
 // }
-
-bool compare(int a, int b)
-{
-    if (a % 3 != b % 3)
-        return a % 3 < b % 3;
-    return a > b;
+bool compare(int a, int b) {
+    if (a % 3 ==1 && b % 3 != 1) {
+        return true;
+    } else if (a % 3 == 2 && (b % 3==0)) {
+        return true;
+    } else if (a % 3 == b % 3) {
+        return a < b;
+    }
+    return false;
 }
+
+ 
 
 void insertionSort(int arr[], int n)
 {
@@ -157,11 +162,11 @@ int main()
 {
     int arr[] = {9, 4, 1, 7, 3, 6, 8, 2, 5};
     int n = sizeof(arr) / sizeof(arr[0]);
-    // insertionSort(arr,n);
+    insertionSort(arr,n);
     // quickSort(arr,0,n-1);
     // bubbleSort(arr,n);
     // selectionSort(arr,n);
-    mergeSort(arr, 0, n - 1);
+    // mergeSort(arr, 0, n - 1);
 
     for (int i = 0; i < n; i++)
     {
