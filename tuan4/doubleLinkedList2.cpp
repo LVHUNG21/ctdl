@@ -62,6 +62,15 @@ class DoubleLinkedList{
         }
     }
 }
+~DL(){
+    Node<T> * current=head;
+   
+    while(current!=nullptr){
+        next=current->next;
+        delelte current;
+    current=next;
+    }
+}
         void add(T value){
             Node<T> * new_node=new Node<T>(value);
             if(head==nullptr){

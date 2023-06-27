@@ -144,64 +144,22 @@ class DoubleLinkedList{
             current = current->next;
         }
     }
+    void removeKey(T key){
+        if(head==nullptr){
+            return head;
+        }
+        else{
+            Node<T> * current=head;
+            while(current!=nullptr && current->value=key){
+                if(current==head==tail)
 
+            }
+        }
+    }
     if (size == 0) {
         head = tail = nullptr;
     }
 }
-        void add(T value){
-            Node<T> * new_node = new Node<T>(value);
-
-            if (head == nullptr){
-                head = tail = new_node;
-            }
-            else if (value % 2 == 0){
-                Node<T> * current = head;
-                while (current != nullptr && compare(current->data, value)){
-                    current = current->next;
-                }
-                if (current == head){
-                    new_node->next = head;
-                    head->prev = new_node;
-                    head = new_node;
-                }
-                else if (current == nullptr){
-                    new_node->prev = tail;
-                    tail->next = new_node;
-                    tail = new_node;
-                }
-                else{
-                    new_node->prev = current->prev;
-                    new_node->next = current;
-                    current->prev->next = new_node;
-                    current->prev = new_node;
-                }
-            }
-            else{
-                Node<T> * current = tail;
-                while (current != nullptr && compare(value, current->data)){
-                    current = current->prev;
-                }
-                if (current == tail){
-                    new_node->prev = tail;
-                    tail->next = new_node;
-                    tail = new_node;
-                }
-                else if (current == nullptr){
-                    new_node->next = head;
-                    head->prev = new_node;
-                    head = new_node;
-                }
-                else{
-                    new_node->prev = current;
-                    new_node->next = current->next;
-                    current->next->prev = new_node;
-                    current->next = new_node;
-                }
-            }
-
-            size++; 
-        }
 
         void add3(T value ){
             Node<T> * new_node=new Node<T>(value);
@@ -232,6 +190,19 @@ class DoubleLinkedList{
             }
             size++;
         }
+        void add( T value){
+            Node<T> * new_node =new Node<T>(value)
+            if(head==nullptr){
+                head=tail=new_node;
+            }
+            else{
+                Node<T> * current=head;
+                while(current!=nullptr&& compare(value,current->data)){
+                    current=current->next;
+                }
+                if(current==head)
+            }
+        }
         void clear(){
             while(head != nullptr){
                 Node<T> *current_node = head;
@@ -241,7 +212,15 @@ class DoubleLinkedList{
             tail = nullptr;
             size = 0;
         }
-
+        void clear(){
+            while(head!=nullptr){
+                
+            }
+        }
+        void clear(){
+        Node<T> * current=head;
+        while(current!=null)
+        }
         int getSize(){
             return size;
         }
